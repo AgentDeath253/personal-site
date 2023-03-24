@@ -16,7 +16,20 @@ permissions:
 
   id-token: write
 
+concurrebranches: [main]
+
+ workflow_dispatch:
+
+permissions:
+
+  contents: read
+
+  pages: write
+
+  id-token: write
+
 concurrency:
+ncy:
 
   group: ${{ github.workflow }}-${{ github.ref }}
 
@@ -60,12 +73,17 @@ jobs:
 
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install dependencies
+      - name: update
+
 
         run: npm update
-       
-        run: npm install
 
+  
+      - name: Install dependencies
+
+        run: npm install  
+ 
+ 
       - name: Build with vite
 
         run: npm run build
